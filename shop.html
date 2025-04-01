@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jalen's Boutique</title>
+  <link rel="stylesheet" href="shop.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="shortcut icon" href="image/fav-icon.png" />
+</head>
+
+<body>
+  <!--HEADER-->
+  <header class="sticky">
+    <a href="index.html" class="logo"><img src="image/logo.png" alt=""></a>
+    <ul class="navmenu">
+      <li><a href="index.html">home</a></li>
+      <li><a class="active" href="#product1">shop</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="reviews.html">reviews</a></li>
+    </ul>
+
+    <div class="nav-icon">
+      <a href="account.html"><i class='bx bx-user'></i></a>
+      <a href="renting.html"><i class='bx bx-shopping-bag'></i></a>
+      <a href="#" id="search-icon"><i class='bx bx-search'></i></a>
+
+      <div id="menu-icon" class="bx bx-menu"></div>
+    </div>
+
+    <input type="text" id="search-input" placeholder="Search..." style="display: none;">
+  </header>
+
+  <!--BANNER-->
+  <div class="banner">
+    <div class="banner-container">
+      <img src="image/11.png">
+      <img src="image/12.png">
+      <img src="image/13.png">
+      <img src="image/14.png">
+      <img src="image/15.png">
+      <img src="image/16.png">
+      <img src="image/17.png">
+      <img src="image/18.png">
+    </div>
+
+    <div class="banner-text">
+      Rent. Wear. Impress.
+    </div>
+  </div>
+
+  <!-- Filter Section -->
+  <div class="filter-container">
+    <label for="category-filter"></label>
+    <div class="filter-options">
+      <button class="filter-btn active" data-category="">All</button>
+      <button class="filter-btn" data-category="coat">Coat</button>
+      <button class="filter-btn" data-category="long-sleeve">Long Sleeves</button>
+      <button class="filter-btn" data-category="long-dress">Long Dress</button>
+      <button class="filter-btn" data-category="cocktail">Cocktail</button>
+    </div>
+  </div>
+
+  <!--PRODUCTS-->
+  <section id="product1" class="section-p1">
+    <div class="pro-container" id="productContainer"></div>
+  </section>
+
+  <!--END TEXT-->
+  <div class="end-text">
+    <p>Copyright &#169; 2025. All Rights Reserved. </p>
+  </div>
+
+  <script>
+    //------SEARCH
+    // Get elements
+    const searchIcon = document.getElementById("search-icon");
+    const searchBox = document.getElementById("search-input");
+    // Toggle search bar when clicking the search icon
+    searchIcon.addEventListener("click", function (event) {
+      searchBox.style.display = "block";
+      searchBox.focus();
+      event.stopPropagation();
+    });
+    // Hide search bar when clicking outside (only if empty)
+    document.addEventListener("click", function (event) {
+      if (event.target !== searchBox && event.target !== searchIcon) {
+        if (searchBox.value.trim() === "") { // Only hide if there's no text
+          searchBox.style.display = "none";
+        }
+      }
+    });
+    // Function to filter products
+    function filterProducts() {
+      let filter = searchBox.value.toLowerCase();
+      let products = document.querySelectorAll(".pro");
+      products.forEach(function (product) {
+        let brand = product.querySelector(".des span").textContent.toLowerCase();
+        let productName = product.querySelector(".des h5").textContent.toLowerCase();
+        if (brand.includes(filter) || productName.includes(filter)) {
+          product.style.display = "block"; // Show matching products
+        } else {
+          product.style.display = "none"; // Hide non-matching products
+        }
+      });
+    }
+    // Trigger filtering on typing
+    searchBox.addEventListener("keyup", function (event) {
+      if (event.key !== "Enter") {
+        filterProducts();
+      }
+    });
+    // Trigger filtering when Enter is pressed
+    searchBox.addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault(); // Prevent form submission if inside a form
+        filterProducts(); // Run filter function
+      }
+    });
+
+
+    // FILTER
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    filterButtons.forEach(function (button) {
+      button.addEventListener("click", function () {
+        const selectedCategory = button.getAttribute("data-category");
+        // Toggle the active class to highlight the selected button
+        filterButtons.forEach(function (btn) {
+          btn.classList.remove("active");
+        });
+        button.classList.add("active");
+        // Filter products based on the selected category
+        const products = document.querySelectorAll(".pro");
+        products.forEach(function (product) {
+          const productCategory = product.getAttribute("data-category");
+          if (selectedCategory === "" || productCategory === selectedCategory) {
+            product.style.display = "block"; // Show matching product
+          } else {
+            product.style.display = "none"; // Hide non-matching product
+          }
+        });
+      });
+    });
+
+    //PRODUCT DATA
+    const products = [
+      { id: 0, img: "image/products/f2.jpg", brand: "Anderson", name: "Maxi Dress - Yellow Satin", price: "₱1,200", category: "long-dress" },
+      { id: 1, img: "image/products/f1.jpg", brand: "Dorothy", name: "Light Purple Peak Lapel Tuxedo", price: "₱400", category: "coat" },
+      { id: 2, img: "image/products/f4.jpg", brand: "Dorothy", name: "Pleated Slit long Chiffon Dress", price: "₱1,400", category: "long-dress" },
+      { id: 3, img: "image/products/f5.jpg", brand: "Huutoe", name: "Linen Blazer", price: "₱350", category: "coat" },
+      { id: 4, img: "image/products/f9.jpg", brand: "Leah", name: "Corset Back Floor Length Dress", price: "₱1,400", category: "long-dress" },
+      { id: 5, img: "image/products/f6.jpg", brand: "Arrow", name: "Linen Pink Longsleeves", price: "₱400", category: "long-sleeve" },
+      { id: 6, img: "image/products/f7.jpg", brand: "Sirri", name: "Summer Spring Men's Suit", price: "₱400", category: "coat" },
+      { id: 7, img: "image/products/f8.jpg", brand: "Lady", name: "All-matched Skew Collar Dress", price: "₱1,800", category: "long-dress" },
+
+      { id: 8, img: "image/products/f10.jpg", brand: "Monica's Elegance", name: "Elegant Women Slim Party Cocktail Bridesmaid Dress", price: "₱800", category: "cocktail" },
+      { id: 9, img: "image/products/f14.png", brand: "SHIMLA COLLECTION", name: "Formal Long Sleeve Tuxedo Shirt", price: "₱400", category: "long-sleeve" },
+      { id: 10, img: "image/products/f11.jpg", brand: "Monica's Elegance", name: "Short Homecoming Dresses for Teens Sparkly Cocktail Dress", price: "₱1,000", category: "cocktail" },
+      { id: 11, img: "image/products/f15.jpg", brand: "Ben Sherman | Est 1963", name: "Men's White Long Sleeve Oxford Shirt", price: "₱400", category: "long-sleeve" },
+      { id: 12, img: "image/products/f12.jpg", brand: "Monica's Elegance", name: "TS A-Line Cocktail Dresses Elegant Dress Wedding Cocktail Party", price: "₱1,200", category: "cocktail" },
+      { id: 13, img: "image/products/f16.jpg", brand: "SHIMLA COLLECTION", name: "Satin Green Long Sleeve Shirt", price: "₱500", category: "long-sleeve" },
+      { id: 14, img: "image/products/f13.png", brand: "Couture Candy", name: "2025 Sexy Party Cocktail Dresses For Weddings", price: "₱800", category: "cocktail" },
+      { id: 15, img: "image/products/f17.jpg", brand: "SHIMLA COLLECTION", name: "Nice Black Blazer for Men Stylish Single Breasted Black Coat", price: "₱500", category: "coat" },
+
+      { id: 16, img: "image/products/f18.jpg", brand: "Monica's Elegance", name: "Pink Quinceañera Ball Gown Off Shoulder Lace Applique Prom Dress", price: "₱2,500", category: "long-dress" },
+      { id: 17, img: "image/products/f22.jpg", brand: "Classic Threads", name: " Mens Wool Blend Blazer Business Formal Lapel Coat", price: "₱400", category: "coat" },
+      { id: 18, img: "image/products/f19.jpg", brand: "Luxe Royale", name: "Ladies Ball Gown in Candy Crush Fabrics with Umbrella Cut", price: "₱2,600", category: "long-dress" },
+      { id: 19, img: "image/products/f23.jpg", brand: "Urban Chic", name: "Men's Fashion Business Casual Long Sleeve Suit Coat", price: "₱500", category: "coat" },
+      { id: 20, img: "image/products/f20.jpg", brand: "Glamour Chic", name: "Korean V-neck Party Sequin Ball Gown with Elegant Bow", price: "₱2,800", category: "long-dress" },
+      { id: 21, img: "image/products/f24.jpg", brand: "Urban Chic", name: "Men's Business Casual Suit Coat with Pockets", price: "₱500", category: "coat" },
+      { id: 22, img: "image/products/f21.jpg", brand: "Luxe Couture", name: "Off-Shoulder Dirty White Ball Gown with Black Outline", price: "₱2,800", category: "long-dress" },
+      { id: 23, img: "image/products/f25.jpg", brand: "Hugo", name: "Regular-Fit Formal Coat in Wool-Blend Twill - Grey", price: "₱600", category: "coat" },
+
+      { id: 24, img: "image/products/f26.jpg", brand: "Monica's Elegance", name: "Matte Satin Sleeveless Ballgown Cocktail Dress", price: "₱800", category: "cocktail" },
+      { id: 25, img: "image/products/f30.jpg", brand: "Ben Sherman", name: "Men's Sky Blue Long Sleeve Oxford Formal Shirt", price: "₱400", category: "long-sleeve" },
+      { id: 26, img: "image/products/f27.jpg", brand: "Couture", name: "Summer Cocktail Attire for July Wedding in New York", price: "₱1,000", category: "cocktail" },
+      { id: 27, img: "image/products/f31.jpg", brand: "Elegant Threads", name: "Ladies Formal Long Sleeve Chiffon Shirt Design Career Shirt", price: "₱400", category: "long-sleeve" },
+      { id: 28, img: "image/products/f28.jpg", brand: "Couture Candy", name: "2025 Sexy Party Cocktail Dresses For Weddings", price: "₱1,200", category: "cocktail" },
+      { id: 29, img: "image/products/f32.jpg", brand: "HUILISHI", name: "Premium Quality Long Sleeve Business Shirt for Men", price: "₱500", category: "long-sleeve" },
+      { id: 30, img: "image/products/f29.jpg", brand: "Royal Couture", name: "Red Cocktail Dress with Gold Embroidery", price: "₱800", category: "cocktail" },
+      { id: 31, img: "image/products/f33.jpg", brand: "Bor Damini", name: "Antique Bor Damini Women's Fashion Long Sleeve Chiffon Formal Shirt", price: "₱500", category: "long-sleeve" },
+
+      { id: 32, img: "image/products/f42.jpg", brand: "Esposa Group", name: "NB5895 Elegant Ball Gown", price: "₱2,800", category: "long-dress" },
+      { id: 33, img: "image/products/f34.jpg", brand: "Italian Tailor", name: "New Arrival Designer Slim Fit Business Formal Wedding Tuxedo Suit", price: "₱600", category: "coat" },
+      { id: 34, img: "image/products/f43.jpg", brand: "Sultan Dress", name: "Royal Blue Princess Ball Gown Glitter Dress", price: "₱3,000", category: "long-dress" },
+      { id: 35, img: "image/products/f35.jpg", brand: "DD#8678", name: "US Formal Casual Elegant Blazer Coat for Women", price: "₱400", category: "coat" },
+      { id: 36, img: "image/products/f44.jpg", brand: "AMELISSE", name: "Off Shoulder Tulle & Glitter Quinceañera Ball Gown Dress", price: "₱3,200", category: "long-dress" },
+      { id: 37, img: "image/products/f36.jpg", brand: "The Modest Man", name: "Men's Business Casual Jacket", price: "₱500", category: "coat" },
+      { id: 38, img: "image/products/f45.jpg", brand: "Ricco India", name: "Blue Structured Ball-Gown", price: "₱2,800", category: "long-dress" },
+      { id: 39, img: "image/products/f37.jpg", brand: "Luxe Couture", name: "Men's Sequin Shawl Lapel Tuxedo Coat", price: "₱800", category: "coat" },
+
+      { id: 40, img: "image/products/f46.jpg", brand: "Montique Clothing", name: "Skye Black Cocktail Dress", price: "₱1,800", category: "cocktail" },
+      { id: 41, img: "image/products/f38.jpg", brand: "Good Mockups", name: "Long Sleeve Formal Dress Shirt Mockup PSD", price: "₱400", category: "long-sleeve" },
+      { id: 42, img: "image/products/f47.jpg", brand: "MACloth", name: "Off the Shoulder Sheath Midi Cocktail Dress", price: "₱1,000", category: "cocktail" },
+      { id: 43, img: "image/products/f39.jpg", brand: "J.VER", name: "Men's Tuxedo Shirt Formal Dress Shirt", price: "₱400", category: "long-sleeve" },
+      { id: 44, img: "image/products/f48.jpg", brand: "Luxe Couture", name: "A-Line Cocktail Dress with Bishop Sleeves", price: "₱1,300", category: "cocktail" },
+      { id: 45, img: "image/products/f40.jpg", brand: "WCLUB", name: "Long Sleeve Dress Shirt - Blue", price: "₱500", category: "long-sleeve" },
+      { id: 46, img: "image/products/f49.jpg", brand: "UCenter Dress", name: "Blue Tulle Butterfly Cocktail Gown", price: "₱1,200", category: "cocktail" },
+      { id: 47, img: "image/products/f41.jpg", brand: "Double TWO", name: "Men's Silver Grey Classic Easy Care Long Sleeve Shirt", price: "₱500", category: "long-sleeve" },
+    
+      { id: 48, img: "image/products/f50.jpg", brand: "Ubuy", name: "2021 Princess Ball Gown Prom Dress with Slit", price: "₱3,800", category: "long-dress" },
+      { id: 49, img: "image/products/f58.jpg", brand: "9times", name: "NMen's Black Blazer Coat Casual Formal Sports Jacket", price: "₱600", category: "coat" },
+      { id: 50, img: "image/products/f51.jpg", brand: "Royal Elegance", name: "Luxury Puffy Princess Bridal Ball Gown with Long Train", price: "₱3,000", category: "long-dress" },
+      { id: 51, img: "image/products/f59.jpg", brand: "Elegant Attire", name: "Women's Red-Orange Blazer", price: "₱400", category: "coat" },
+      { id: 52, img: "image/products/f52.jpg", brand: "Luxe Royale", name: "Spaghetti Straps Gold Beaded Lace Evening Ball Gown", price: "₱3,200", category: "long-dress" },
+      { id: 53, img: "image/products/f60.jpg", brand: "TOM FORD", name: "Men's Formal & Semi-Formal Evening Wear", price: "₱500", category: "coat" },
+      { id: 54, img: "image/products/f53.jpg", brand: "EAGLELY", name: "Formal Ball Gown for Debut 18th Birthday Princess Dress", price: "₱2,800", category: "long-dress" },
+      { id: 55, img: "image/products/f61.jpg", brand: "British GQ", name: "Morning Suits A Foolproof Guide for Men", price: "₱800", category: "coat" },
+
+      { id: 56, img: "image/products/f66.jpg", brand: "Glamour Essence", name: "Cocktail Dress for Prom Night", price: "₱1,800", category: "cocktail" },
+      { id: 57, img: "image/products/f74.jpg", brand: "ACEVOG", name: "Women's Bow Tie Neck Long Sleeve Office Semi-Formal Shirt", price: "₱400", category: "long-sleeve" },
+      { id: 58, img: "image/products/f67.jpg", brand: "Timeless Elegance", name: "Vintage Velvet Long Sleeve Cocktail Dress", price: "₱1,000", category: "cocktail" },
+      { id: 59, img: "image/products/f75.jpg", brand: "Classic Threads", name: "Copper Long Sleeve Polo", price: "₱400", category: "long-sleeve" },
+      { id: 60, img: "image/products/f68.jpg", brand: "Luxe", name: "Baby Blue Elegant Tulle Cocktail Dress", price: "₱1,300", category: "cocktail" },
+      { id: 61, img: "image/products/f76.jpg", brand: "Elite Apparel", name: "Men's Long Sleeve Printed Formal Shirt", price: "₱500", category: "long-sleeve" },
+      { id: 62, img: "image/products/f69.jpg", brand: "Adrianna Papell", name: "Black Cocktail Wedding Guest Dress", price: "₱1,200", category: "cocktail" },
+      { id: 63, img: "image/products/f77.jpg", brand: "Signature Style", name: "Men's Solid Long Sleeve Stretch Dress Shirt", price: "₱500", category: "long-sleeve" },
+    
+      { id: 64, img: "image/products/f54.jpg", brand: "Royal Blossom", name: "3D Flowers Ball Gown Quinceañera Dress with Corset Back", price: "₱3,800", category: "long-dress" },
+      { id: 65, img: "image/products/f62.jpg", brand: "Prestige Menswear", name: "Black Tie Attire Suit", price: "₱600", category: "coat" },
+      { id: 66, img: "image/products/f55.jpg", brand: "Honey", name: "Light Blue Strapless Corset Formal Dress", price: "₱3,000", category: "long-dress" },
+      { id: 67, img: "image/products/f63.jpg", brand: "Real Image", name: "Raw Silk Formal Prince Coat for Men", price: "₱400", category: "coat" },
+      { id: 68, img: "image/products/f56.jpg", brand: "Elegant Essence", name: "Off-the-Shoulder Satin Ball Gown Prom Dress", price: "₱3,200", category: "long-dress" },
+      { id: 69, img: "image/products/f64.jpg", brand: "Elite Tailor", name: "Double-Breasted Custom 3-Piece Wedding Tuxedo Suit", price: "₱500", category: "coat" },
+      { id: 70, img: "image/products/f57.jpg", brand: "EAGLELY", name: "Formal Ball Gown", price: "₱2,800", category: "long-dress" },
+      { id: 71, img: "image/products/f65.jpg", brand: "Grand Attire", name: "Red Plus Size Slim Tailored One-Button Men's Coat", price: "₱800", category: "coat" },
+
+      //NEW
+      { id: 72, img: "image/products/f70.jpg", brand: "MACloth", name: "Cap Sleeves Lace Cocktail Dress - Pink", price: "₱1,800", category: "cocktail" },
+      { id: 73, img: "image/products/f78.jpg", brand: "Double TWO", name: "Men's Pale Sage Green Long Sleeve Non-Iron Shirt", price: "₱400", category: "long-sleeve" },
+      { id: 74, img: "image/products/f71.jpg", brand: "June Bridals", name: "Fit and Flare Cocktail Dress", price: "₱1,000", category: "cocktail" },
+      { id: 75, img: "image/products/f79.jpg", brand: "J.VER", name: "Men's Cotton Long Sleeve Formal Shirt Regular Fit with Stain Shield", price: "₱400", category: "long-sleeve" },
+      { id: 76, img: "image/products/f72.jpg", brand: "Luxe Couture", name: "Ivory Beaded Tulle Strapless Cocktail Dress", price: "₱1,300", category: "cocktail" },
+      { id: 77, img: "image/products/f80.jpg", brand: "SHYPT", name: "Women's Chiffon Long Sleeve Autumn Shirt", price: "₱500", category: "long-sleeve" },
+      { id: 78, img: "image/products/f73.jpg", brand: "Confête", name: "Reception White Cocktail Dress", price: "₱1,200", category: "cocktail" },
+      { id: 79, img: "image/products/f81.jpg", brand: "Fashion Threads", name: "Men's Cotton Long Sleeve Business Formal Polo Shirt", price: "₱500", category: "long-sleeve" },
+    
+    ];
+
+    // Generate Product Cards
+    function generateProducts() {
+      let container = document.getElementById("productContainer");
+      container.innerHTML = ""; // Clear existing content
+
+      products.forEach(product => {
+        let productHTML = `
+        <div class="pro" onclick="window.location.href='singleproduct.html?id=${product.id}'" data-category="${product.category}">
+          <img src="${product.img}" alt="${product.name}">
+          <div class="des">
+            <span>${product.brand}</span>
+            <h5>${product.name}</h5>
+            <h4>${product.price}</h4>
+          </div>
+        </div>
+      `;
+        container.innerHTML += productHTML;
+      });
+    }
+
+    // Call Function on Page Load
+    window.onload = generateProducts;
+
+  </script>
+
+
+
+
+
+  <script src="script.js"></script>
+</body>
+
+
+
+
+
+</html>

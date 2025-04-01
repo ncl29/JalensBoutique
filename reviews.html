@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jalen's Boutique</title>
+  <link rel="stylesheet" href="reviews.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="shortcut icon" href="image/fav-icon.png" />
+</head>
+
+<body>
+  <!--HEADER-->
+  <header class="sticky">
+    <a href="#" class="logo"><img src="image/logo.png" alt=""></a>
+    <ul class="navmenu">
+      <li><a href="index.html">home</a></li>
+      <li><a href="shop.html">shop</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a class="active" href="#reviews">reviews</a></li>
+    </ul>
+
+    <div class="nav-icon">
+      <a href="account.html"><i class='bx bx-user'></i></a>
+      <a href="renting.html"><i class='bx bx-shopping-bag'></i></a>
+
+      <div id="menu-icon" class="bx bx-menu"></div>
+    </div>
+  </header>
+
+  <!-- REVIEWS -->
+  <section class="testimonials">
+    <div class="left-panel">
+      <h1>What Clients Say About Us?</h1>
+      <button class="write-review">Write Review</button>
+    </div>
+    <div class="right-panel">
+      <div class="reviews">
+        <div class="review-card">
+          <img src="image/profile/a.jpg" alt="Francisco Andrade" class="profile-pic">
+          <div class="review-content">
+            <h3>Francisco Andrade</h3>
+            <p class="date">Jan 20, 2025</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua.</p>
+          </div>
+        </div>
+        <div class="review-card">
+          <img src="image/profile/b.jpg" alt="Richard Sanchez" class="profile-pic">
+          <div class="review-content">
+            <h3>Richard Sanchez</h3>
+            <p class="date">Apr 10, 2024</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua.</p>
+          </div>
+        </div>
+        <div class="review-card">
+          <img src="image/profile/c.webp" alt="Rufus Stewart" class="profile-pic">
+          <div class="review-content">
+            <h3>Rufus Stewart</h3>
+            <p class="date">June 10, 2023</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua.</p>
+          </div>
+        </div>
+        <div class="review-card">
+          <img src="image/profile/d.jpg" alt="Lars Peeters" class="profile-pic">
+          <div class="review-content">
+            <h3>Lars Peeters</h3>
+            <p class="date">Dec 30, 2022</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+              dolore magna aliqua.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+  const writeReviewButton = document.querySelector(".write-review");
+  const reviewsContainer = document.querySelector(".reviews");
+  const reviewModal = document.createElement("div");
+  reviewModal.classList.add("review-modal");
+  reviewModal.innerHTML = `
+    <div class="review-overlay"></div>
+    <div class="review-dialog">
+        <h2>Write a Review</h2>
+        <input type="text" id="reviewer-name" placeholder="Enter your name">
+        <textarea id="review-text" placeholder="Write your review"></textarea>
+        <div class="review-buttons">
+            <button id="submit-review">Submit</button>
+            <button id="cancel-review">Cancel</button>
+        </div>
+    </div>
+  `;
+  document.body.appendChild(reviewModal);
+
+  const confirmationModal = document.createElement("div");
+  confirmationModal.classList.add("confirmation-modal");
+  confirmationModal.innerHTML = `
+    <div class="confirmation-overlay"></div>
+    <div class="confirmation-dialog">
+        <h2>Are you sure you want to submit this review?</h2>
+        <div class="confirmation-buttons">
+            <button id="confirm-submit">Yes</button>
+            <button id="cancel-submit">No</button>
+        </div>
+    </div>
+  `;
+  document.body.appendChild(confirmationModal);
+
+  const successModal = document.createElement("div");
+  successModal.classList.add("success-modal");
+  successModal.innerHTML = `
+    <div class="success-overlay"></div>
+    <div class="success-dialog">
+        <h2>Review Submitted!</h2>
+        <button id="close-success">Close</button>
+    </div>
+  `;
+  document.body.appendChild(successModal);
+
+  // Apply styles for Yes and No buttons
+  document.getElementById("confirm-submit").style.backgroundColor = "#4CAF50"; // Green for Yes
+  document.getElementById("cancel-submit").style.backgroundColor = "#f44336"; // Red for No
+  document.getElementById("confirm-submit").style.color = "white"; // Text color white
+  document.getElementById("cancel-submit").style.color = "white"; // Text color white
+  document.getElementById("confirm-submit").style.padding = "10px 15px"; // Padding for Yes button
+  document.getElementById("cancel-submit").style.padding = "10px 15px"; // Padding for No button
+  document.getElementById("confirm-submit").style.borderRadius = "5px"; // Border radius
+  document.getElementById("cancel-submit").style.borderRadius = "5px"; // Border radius
+
+  // Show the review modal when the 'Write Review' button is clicked
+  writeReviewButton.addEventListener("click", () => {
+    reviewModal.style.display = "flex";
+  });
+
+  // Cancel review modal
+  document.getElementById("cancel-review").addEventListener("click", () => {
+    reviewModal.style.display = "none";
+  });
+
+  // Cancel confirmation modal
+  document.getElementById("cancel-submit").addEventListener("click", () => {
+    confirmationModal.style.display = "none";
+  });
+
+  // Submit review and show confirmation modal
+  document.getElementById("submit-review").addEventListener("click", () => {
+    const name = document.getElementById("reviewer-name").value;
+    const reviewText = document.getElementById("review-text").value;
+
+    if (name && reviewText) {
+      confirmationModal.style.display = "flex";
+    }
+  });
+
+  // If the user confirms the submission
+  document.getElementById("confirm-submit").addEventListener("click", () => {
+    const name = document.getElementById("reviewer-name").value;
+    const reviewText = document.getElementById("review-text").value;
+    const date = new Date().toDateString();
+    const profilePic = "profile-placeholder.png";
+
+    const reviewCard = document.createElement("div");
+    reviewCard.classList.add("review-card");
+
+    reviewCard.innerHTML = `
+      <img src="${profilePic}" alt="${name}" class="profile-pic">
+      <div class="review-content">
+          <h3>${name}</h3>
+          <p class="date">${date}</p>
+          <p>${reviewText}</p>
+      </div>
+    `;
+
+    reviewsContainer.prepend(reviewCard);
+    reviewModal.style.display = "none";
+    confirmationModal.style.display = "none";
+    successModal.style.display = "flex";
+  });
+
+  // Close the success modal
+  document.getElementById("close-success").addEventListener("click", () => {
+    successModal.style.display = "none";
+  });
+});
+
+    </script>
+
+    <script src="script.js"></script>
+</body>

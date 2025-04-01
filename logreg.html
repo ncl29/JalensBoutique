@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- HEAD STARTS HERE -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jalen's Boutique</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="logreg.css">
+</head>
+<!-- HEAD ENDS HERE -->
+
+<!-- BODY STARTS HERE -->
+
+<body>
+
+   <!-- 🔹 Confirmation Message at the VERY TOP -->
+   <div id="confirmationMessage" class="confirmation-popup">
+    <p>Registration successful! Redirecting to login...</p>
+  </div>
+
+  <div class="container" id="container">
+
+    <!-- LOGIN -->
+    <div class="form-box login">
+      <form onsubmit="redirectToMain(event)">
+        <h1>Login</h1>
+        <div class="input-box">
+          <input type="text" placeholder="Name" required>
+          <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+          <input type="password" placeholder="Password" required>
+          <i class='bx bxs-lock-alt'></i>
+        </div>
+        <div class="forgot-link">
+          <a href="about:blank" target="_blank">Forgot Password?</a>
+        </div>
+        <button type="submit" class="btn">Login</button>
+        <p>or Login with Social Platform</p>
+        <div class="social-icons">
+          <a href="https://accounts.google.com/AddSession" target="_blank">
+            <i class='bx bxl-google'></i>
+          </a>
+          <a href="https://www.facebook.com/?stype=lo&flo=1" target="_blank">
+            <i class='bx bxl-facebook'></i>
+          </a>
+        </div>
+      </form>
+    </div>
+  
+    <!-- REGISTER -->
+    <div class="form-box register">
+      <form id="registerForm">
+        <h1>Registration</h1>
+        <div class="input-box">
+          <input type="text" placeholder="Name" required>
+          <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+          <input type="email" placeholder="Email" required>
+          <i class='bx bxs-envelope'></i>
+        </div>
+        <div class="input-box">
+          <input type="password" placeholder="Password" required>
+          <i class='bx bxs-lock-alt'></i>
+        </div>
+        <button type="submit" class="btn">Register</button>
+        <p>or Register with Social Platform</p>
+        <div class="social-icons">
+          <a href="https://accounts.google.com/AddSession" target="_blank">
+            <i class='bx bxl-google'></i>
+          </a>
+          <a href="https://www.facebook.com/?stype=lo&flo=1" target="_blank">
+            <i class='bx bxl-facebook'></i>
+          </a>
+        </div>
+      </form>
+    </div>
+
+    <div class="toggle-box">
+      <div class="toggle-panel toggle-left">
+        <h1>Hello, Welcome!</h1>
+        <p>Don't have an account?</p>
+        <button class="btn register-btn">Register</button>
+      </div>
+
+      <div class="toggle-panel toggle-right">
+        <h1>Welcome Back!</h1>
+        <p>Already have an account?</p>
+        <button class="btn login-btn">Login</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+<!-- BODY ENDS HERE -->
+
+</html>

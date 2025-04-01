@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jalen's Boutique</title>
+  <link rel="stylesheet" href="shop.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="shortcut icon" href="image/fav-icon.png" />
+</head>
+
+<body>
+  <!--HEADER-->
+  <header class="sticky">
+    <a href="#" class="logo"><img src="image/logo.png" alt=""></a>
+    <ul class="navmenu">
+      <li><a href="index.html">home</a></li>
+      <li><a class="active" href="#product1">shop</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="reviews.html">reviews</a></li>
+    </ul>
+
+    <div class="nav-icon">
+      <a href="account.html"><i class='bx bx-user'></i></a>
+      <a href="renting.html"><i class='bx bx-shopping-bag'></i></a>
+
+      <div id="menu-icon" class="bx bx-menu"></div>
+    </div>
+
+  </header>
+
+  <!--SINGLE PRODUCT-->
+  <section id="prodetails" class="section-p1">
+    <a href="javascript:history.back()" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="single-pro-image">
+      <img id="productImage" width="100%" alt="">
+    </div>
+
+    <div class="single-pro-details">
+      <h4 id="productTitle"></h4>
+      <h2 id="productPrice"></h2>
+      <h4>Product Details</h4>
+      <span id="productDescription"></span>
+
+      <!-- PAYMENT METHOD -->
+      <div class="overlay" id="overlay" style="display: none;"></div>
+      <div class="payment-box" id="paymentBox" style="display: none;">
+        <span class="close-btn" onclick="closePaymentBox()">✖</span>
+        <h2>Choose Payment Method</h2>
+        <div class="payment-method">
+          <div class="method" onclick="selectMethod('GCash')">
+            <i class='bx bx-money'></i>
+            <span>Pay with GCash</span>
+          </div>
+          <div class="method" onclick="selectMethod('Maya')">
+            <i class='bx bxl-paypal'></i>
+            <span>Pay with Maya</span>
+          </div>
+        </div>
+        <button class="pay-btn" onclick="proceedPayment()">Proceed to Pay</button>
+      </div>
+
+      <!-- CALENDAR OVERLAY -->
+      <div class="overlay" id="calendarOverlay" style="display: none;"></div>
+      <div class="calendar-box" id="calendarBox" style="display: none;">
+        <span class="close-btn" onclick="closeCalendarBox()">✖</span>
+        <h2>Check Availability</h2>
+        <input type="date" id="availabilityDate" />
+      </div>
+
+      <!-- Shared Rental Buttons -->
+      <div class="rental-buttons">
+        <a href="#" class="rent-btn" id="rentNowBtn">Rent Now</a>
+        <a href="#" class="check-btn" id="checkAvailabilityBtn">Check Availability</a>
+      </div>
+    </div>
+
+  </section>
+
+  <script>
+    // Define product data
+    const products = [
+      {
+        title: "Maxi Dress - Yellow Satin",
+        price: "₱1,200",
+        description: "Elegant and flowy, perfect for formal events. Made from smooth satin for a classy and sophisticated look.",
+        image: "image/products/f2.jpg"
+      },
+      {
+        title: "Light Purple Peak Lapel Tuxedo",
+        price: "₱400",
+        description: "The Light Purple Peak Lapel Tuxedo offers a sleek slim-fit design, premium fabric, and a one-button closure, perfect for formal events.",
+        image: "image/products/f1.jpg"
+      },
+      {
+        title: "Pleated Slit long Chiffon Dress",
+        price: "₱1,400",
+        description: "A flowy and elegant chiffon dress featuring a stylish pleated design and a flattering slit. Perfect for formal events, it offers a graceful and sophisticated look.",
+        image: "image/products/f4.jpg"
+      },
+      {
+        title: "Linen Blazer",
+        price: "₱350",
+        description: "A sleek and versatile dark blue linen blazer, perfect for a polished yet breathable look. Ideal for both casual and formal occasions.",
+        image: "image/products/f5.jpg"
+      },
+      {
+        title: "Corset Back Floor Length Dress",
+        price: "₱1,400",
+        description: "Elegant floor-length dress with a corset back for a flattering and adjustable fit. Perfect for formal occasions.",
+        image: "image/products/f9.jpg"
+      },
+      {
+        title: "Linen Pink Longsleeves",
+        price: "₱400",
+        description: "Lightweight linen pink longsleeves, breathable and stylish for casual or semi-formal wear.",
+        image: "image/products/f6.jpg"
+      },
+      {
+        title: "Summer Spring Men's Suit",
+        price: "₱400",
+        description: "Lightweight and breathable men's suit, perfect for spring and summer occasions.",
+        image: "image/products/f7.jpg"
+      },
+      {
+        title: "All-matched Skew Collar Dress",
+        price: "₱1,800",
+        description: "Stylish skew collar dress that complements any occasion with elegance.",
+        image: "image/products/f8.jpg"
+      },
+      {
+        title: "Elegant Women Slim Party Cocktail Bridesmaid Dress",
+        price: "₱800",
+        description: "A sophisticated slim-fit gown perfect for parties, bridesmaids, proms, and evening events.",
+        image: "image/products/f10.jpg"
+      },
+      {
+        title: "Formal Long Sleeve Tuxedo Shirt",
+        price: "₱400",
+        description: "A classic formal long sleeve tuxedo shirt, designed for elegant events and special occasions.",
+        image: "image/products/f14.png"
+      },
+      {
+        title: "Short Homecoming Dresses for Teens Sparkly Cocktail Dress",
+        price: "₱1,000",
+        description: "A dazzling off-shoulder cocktail dress, perfect for homecoming, prom, or any special party event.",
+        image: "image/products/f11.jpg"
+      },
+      {
+        title: "Men's White Long Sleeve Oxford Shirt",
+        price: "₱400",
+        description: "A timeless white long sleeve oxford shirt from Ben Sherman, perfect for both casual and formal wear.",
+        image: "image/products/f15.jpg"
+      },
+      {
+        title: "TS A-Line Cocktail Dresses Elegant Dress Wedding Cocktail Party",
+        price: "₱1,200",
+        description: "A chic A-line cocktail dress with short sleeves, ideal for weddings, cocktail parties, and formal events.",
+        image: "image/products/f12.jpg"
+      },
+      {
+        title: "Satin Green Long Sleeve Shirt",
+        price: "₱500",
+        description: "A stylish and elegant satin green long sleeve shirt, perfect for formal and semi-formal occasions.",
+        image: "image/products/f16.jpg"
+      },
+      {
+        title: "2025 Sexy Party Cocktail Dresses For Weddings",
+        price: "₱800",
+        description: "A stunning and bold cocktail dress designed for weddings, perfect for making a statement at any elegant event.",
+        image: "image/products/f13.png"
+      },
+      {
+        title: "Nice Black Blazer for Men Stylish Single Breasted Black Coat",
+        price: "₱500",
+        description: "A sleek and stylish black blazer for men, featuring a single-breasted design, perfect for formal and semi-formal occasions.",
+        image: "image/products/f17.jpg"
+      },
+      {
+        title: "Pink Quinceañera Ball Gown Off Shoulder Lace Applique Prom Dress",
+        price: "₱2,500",
+        description: "A stunning off-shoulder pink quinceañera ball gown featuring intricate lace applique, perfect for Sweet 16, prom, or any formal event.",
+        image: "image/products/f18.jpg"
+      },
+      {
+        title: "Mens Wool Blend Blazer Business Formal Lapel Coat",
+        price: "₱400",
+        description: "A stylish wool blend blazer with a sharp lapel, offering a regular fit.",
+        image: "image/products/f22.jpg"
+      },
+      {
+        title: "Ladies Ball Gown in Candy Crush Fabrics with Umbrella Cut",
+        price: "₱2,600",
+        description: "A dazzling off-shoulder cocktail dress, perfect for homecoming, prom, or any special party event.",
+        image: "image/products/f19.jpg"
+      },
+      {
+        title: "Men's Fashion Business Casual Long Sleeve Suit Coat",
+        price: "₱500",
+        description: "A refined business casual suit coat made of cotton blend, designed with pockets and a regular fit, ideal for weddings and professional occasions.",
+        image: "image/products/f23.jpg"
+      },
+      {
+        title: "Korean V-neck Party Sequin Ball Gown with Elegant Bow",
+        price: "₱2,800",
+        description: "An elegant Korean V-neck ball gown with sequins, featuring a chic bow and included petticoat, perfect for prom or a glamorous party.",
+        image: "image/products/f20.jpg"
+      },
+      {
+        title: "Men's Business Casual Suit Coat with Pockets",
+        price: "₱500",
+        description: "A sleek cotton suit coat featuring long sleeves and pockets, perfect for business casual settings, weddings, and other formal occasions.",
+        image: "image/products/f24.jpg"
+      },
+      {
+        title: "Off-Shoulder Dirty White Ball Gown with Black Outline",
+        price: "₱2,800",
+        description: "A sophisticated regular-fit formal coat crafted from wool-blend twill in grey, designed for a polished, timeless look.",
+        image: "image/products/f21.jpg"
+      },
+      {
+        title: "Regular-Fit Formal Coat in Wool-Blend Twill - Grey",
+        price: "₱600",
+        description: "A sleek and stylish black blazer for men, featuring a single-breasted design, perfect for formal and semi-formal occasions.",
+        image: "image/products/f25.jpg"
+      },
+      {
+        title: "Matte Satin Sleeveless Ballgown Cocktail Dress",
+        price: "₱800",
+        description: "A stunning sleeveless matte satin ballgown cocktail dress, perfect for elegant events and special occasions.",
+        image: "image/products/f26.jpg"
+      },
+      {
+        title: "Men's Sky Blue Long Sleeve Oxford Formal Shirt",
+        price: "₱400",
+        description: "A classic sky blue long sleeve oxford shirt from Ben Sherman, ideal for formal occasions or business settings.",
+        image: "image/products/f30.jpg"
+      },
+      {
+        title: "Summer Cocktail Attire for July Wedding in New York",
+        price: "₱1,000",
+        description: "A sophisticated long sleeve chiffon shirt, perfect for career and formal settings, combining comfort and style.",
+        image: "image/products/f27.jpg"
+      },
+      {
+        title: "Ladies Formal Long Sleeve Chiffon Shirt Design Career Shirt",
+        price: "₱400",
+        description: "A refined business casual suit coat made of cotton blend, designed with pockets and a regular fit, ideal for weddings and professional occasions.",
+        image: "image/products/f31.jpg"
+      },
+      {
+        title: "2025 Sexy Party Cocktail Dresses For Weddings",
+        price: "₱1,200",
+        description: "A chic and alluring cocktail dress, designed for weddings and parties, offering a sexy yet elegant silhouette.",
+        image: "image/products/f28.jpg"
+      },
+      {
+        title: "Premium Quality Long Sleeve Business Shirt for Men",
+        price: "₱500",
+        description: "A premium long sleeve business shirt in 7 colors, designed for formal settings, offering a refined and professional look.",
+        image: "image/products/f32.jpg"
+      },
+      {
+        title: "Red Cocktail Dress with Gold Embroidery",
+        price: "₱800",
+        description: "A stunning red cocktail dress adorned with intricate gold embroidery, perfect for weddings, parties, or elegant events.",
+        image: "image/products/f29.jpg"
+      },
+      {
+        title: "Antique Bor Damini Women's Fashion Long Sleeve Chiffon Formal Shirt",
+        price: "₱500",
+        description: "An elegant long sleeve chiffon formal shirt, blending timeless style with modern fashion for professional or formal occasions.",
+        image: "image/products/f33.jpg"
+      },
+      {
+        title: "NB5895 Elegant Ball Gown",
+        price: "₱2,800",
+        description: "A stunning and sophisticated ball gown by Esposa, designed to captivate with its intricate details and luxurious fabric, perfect for making a statement at weddings and formal galas.",
+        image: "image/products/f42.jpg"
+      },
+      {
+        title: "New Arrival Designer Slim Fit Business Formal Wedding Tuxedo Suit",
+        price: "₱600",
+        description: "A luxurious and expertly tailored slim fit tuxedo suit, ideal for weddings and formal business events, offering a sleek, stylish look with impeccable Italian craftsmanship.",
+        image: "image/products/f34.jpg"
+      },
+      {
+        title: "Royal Blue Princess Ball Gown Glitter Dress",
+        price: "₱3,000",
+        description: "A dazzling royal blue princess ball gown, embellished with glitter for a touch of sparkle, perfect for making a grand entrance at formal events and celebrations.",
+        image: "image/products/f43.jpg"
+      },
+      {
+        title: "US Formal Casual Elegant Blazer Coat for Women",
+        price: "₱400",
+        description: "A versatile and elegant blazer coat designed for both formal and casual wear, offering a sophisticated look with a tailored fit for women.",
+        image: "image/products/f35.jpg"
+      },
+      {
+        title: "Off Shoulder Tulle & Glitter Quinceañera Ball Gown Dress",
+        price: "₱3,200",
+        description: "A breathtaking off-shoulder quinceañera ball gown featuring delicate tulle and glitter details, designed to create a magical, unforgettable look on your special day.",
+        image: "image/products/f44.jpg"
+      },
+      {
+        title: "Men's Business Casual Jacket",
+        price: "₱500",
+        description: " A refined business casual jacket, designed to provide a polished yet comfortable look for professional settings and semi-formal occasions.",
+        image: "image/products/f36.jpg"
+      },
+      {
+        title: "Blue Structured Ball-Gown",
+        price: "₱2,800",
+        description: "A striking blue structured ball-gown, designed to offer a sophisticated and dramatic silhouette, perfect for formal occasions and grand celebrations.",
+        image: "image/products/f45.jpg"
+      },
+      {
+        title: "Men's Sequin Shawl Lapel Tuxedo Coat",
+        price: "₱800",
+        description: "A bold and sophisticated tuxedo coat with a sequin shawl lapel, designed to make a striking statement at formal events, parties, and elegant occasions.",
+        image: "image/products/f37.jpg"
+      },
+      {
+        title: "Skye Black Cocktail Dress",
+        price: "₱1,800",
+        description: "A sleek and chic black cocktail dress, designed to offer an elegant and modern silhouette, perfect for formal parties and sophisticated events.",
+        image: "image/products/f46.jpg"
+      },
+      {
+        title: "Long Sleeve Formal Dress Shirt Mockup PSD",
+        price: "₱400",
+        description: "A high-quality PSD mockup for a long sleeve formal dress shirt, ideal for showcasing designs and styles in a professional and polished format.",
+        image: "image/products/f38.jpg"
+      },
+      {
+        title: "Off the Shoulder Sheath Midi Cocktail Dress",
+        price: "₱1,000",
+        description: "A striking red off-the-shoulder sheath midi cocktail dress, designed to provide an elegant and flattering fit, perfect for formal parties and evening events.",
+        image: "image/products/f47.jpg"
+      },
+      {
+        title: "Men's Tuxedo Shirt Formal Dress Shirt",
+        price: "₱400",
+        description: "A sophisticated pleated long sleeve tuxedo shirt, designed for formal occasions with a button-down style, offering a refined and classic look.",
+        image: "image/products/f39.jpg"
+      },
+      {
+        title: "A-Line Cocktail Dress with Bishop Sleeves",
+        price: "₱1,300",
+        description: "A stunning A-line cocktail dress featuring dramatic bishop sleeves, perfect for creating a sophisticated and elegant look at any formal event.",
+        image: "image/products/f48.jpg"
+      },
+      {
+        title: "Long Sleeve Dress Shirt - Blue",
+        price: "₱500",
+        description: "A classic blue long sleeve dress shirt, designed for formal occasions with a tailored fit for a sleek and polished appearance.",
+        image: "image/products/f40.jpg"
+      },
+      {
+        title: "Blue Tulle Butterfly Cocktail Gown",
+        price: "₱1,200",
+        description: "A whimsical blue tulle cocktail gown adorned with butterfly details, designed to bring a delicate and enchanting look to any formal occasion.",
+        image: "image/products/f49.jpg"
+      },
+      {
+        title: "Men's Silver Grey Classic Easy Care Long Sleeve Shirt",
+        price: "₱500",
+        description: "A stylish silver grey long sleeve shirt, designed for easy care and a crisp, professional look, ideal for business and formal settings.",
+        image: "image/products/f41.jpg"
+      },
+      {
+        title: "2021 Princess Ball Gown Prom Dress with Slit",
+        price: "₱3,800",
+        description: "A glamorous princess-style ball gown featuring a daring slit, blending elegance and modern sophistication, perfect for prom and grand celebrations.",
+        image: "image/products/f50.jpg"
+      },
+      {
+        title: "Men's Black Blazer Coat Casual Formal Sports Jacket",
+        price: "₱600",
+        description: " A versatile black blazer designed for both casual and formal wear, offering a sleek and modern fit suitable for business, events, or everyday style.",
+        image: "image/products/f58.jpg"
+      },
+      {
+        title: "Luxury Puffy Princess Bridal Ball Gown with Long Train",
+        price: "₱3,000",
+        description: "A breathtaking princess-style bridal ball gown with a voluminous silhouette and an elegant long train, designed for a regal and unforgettable wedding look.",
+        image: "image/products/f51.jpg"
+      },
+      {
+        title: "Women's Red-Orange Blazer",
+        price: "₱400",
+        description: "A bold and stylish red-orange blazer designed for a chic and sophisticated look, perfect for business, casual, or formal occasions.",
+        image: "image/products/f59.jpg"
+      },
+      {
+        title: "Spaghetti Straps Gold Beaded Lace Evening Ball Gown",
+        price: "₱3,200",
+        description: " A dazzling evening ball gown featuring delicate spaghetti straps, intricate gold beaded lace, and a luxurious silhouette, perfect for making a grand entrance at any formal event.",
+        image: "image/products/f52.jpg"
+      },
+      {
+        title: "Men's Formal & Semi-Formal Evening Wear",
+        price: "₱500",
+        description: " A sophisticated collection of men's formal and semi-formal evening wear, designed with TOM FORD's signature elegance and craftsmanship for a refined, polished look.",
+        image: "image/products/f60.jpg"
+      },
+      {
+        title: "Formal Ball Gown for Debut 18th Birthday Princess Dress",
+        price: "₱2,800",
+        description: "A high-end, elegantly designed ball gown crafted for an 18th birthday debut, featuring a regal silhouette and luxurious details for a truly unforgettable celebration.",
+        image: "image/products/f53.jpg"
+      },
+      {
+        title: "Morning Suits A Foolproof Guide for Men",
+        price: "₱800",
+        description: "A comprehensive guide to mastering the timeless elegance of morning suits, offering expert styling tips and insights for formal daytime events.",
+        image: "image/products/f61.jpg"
+      },
+
+      {
+        title: "Cocktail Dress for Prom Night",
+        price: "₱1,800",
+        description: "A stylish and youthful cocktail dress designed for teens, featuring a flattering fit and elegant details, perfect for making a statement on prom night.",
+        image: "image/products/f66.jpg"
+      },
+      {
+        title: "Women's Bow Tie Neck Long Sleeve Office Semi-Formal Shirt",
+        price: "₱400",
+        description: "A stylish wine red long sleeve shirt with a bow tie neck, perfect for office wear or semi-formal occasions, offering a polished and feminine look.",
+        image: "image/products/f74.jpg"
+      },
+      {
+        title: "Vintage Velvet Long Sleeve Cocktail Dress",
+        price: "₱1,000",
+        description: "A luxurious vintage-inspired cocktail dress crafted from soft velvet, featuring long sleeves and a classic silhouette for an elegant and timeless look.",
+        image: "image/products/f67.jpg"
+      },
+      {
+        title: "Copper Long Sleeve Polo",
+        price: "₱400",
+        description: " A sleek and stylish copper-colored long sleeve polo shirt, ideal for both casual and semi-formal occasions, offering a comfortable and polished look.",
+        image: "image/products/f75.jpg"
+      },
+      {
+        title: "Baby Blue Elegant Tulle Cocktail Dress",
+        price: "₱1,300",
+        description: "A charming baby blue cocktail dress crafted from delicate tulle, offering a soft and feminine look perfect for elegant events and special occasions.",
+        image: "image/products/f68.jpg"
+      },
+      {
+        title: "Men's Long Sleeve Printed Formal Shirt",
+        price: "₱500",
+        description: "A stylish and unique long sleeve formal shirt featuring a sophisticated print, perfect for adding personality to your professional or semi-formal look.",
+        image: "image/products/f76.jpg"
+      },
+      {
+        title: "Black Cocktail Wedding Guest Dress",
+        price: "₱1,200",
+        description: "A sophisticated black cocktail dress from Adrianna Papell, designed for wedding guests with elegant details and a flattering silhouette, perfect for formal celebrations.",
+        image: "image/products/f69.jpg"
+      },
+      {
+        title: "Men's Solid Long Sleeve Stretch Dress Shirt",
+        price: "₱500",
+        description: "A versatile solid long sleeve dress shirt with a stretch fit, designed for business casual or formal wear, offering comfort and a polished appearance.",
+        image: "image/products/f77.jpg"
+      },
+      
+      {
+        title: "3D Flowers Ball Gown Quinceañera Dress with Corset Back",
+        price: "₱3,800",
+        description: "A breathtaking quinceañera ball gown adorned with intricate 3D floral appliqués and a corset back, creating a dreamy and regal look for a special celebration.",
+        image: "image/products/f54.jpg"
+      },
+      {
+        title: "Black Tie Attire Suit",
+        price: "₱600",
+        description: "A sophisticated and impeccably tailored black tie suit, designed for formal events and evening occasions, ensuring a polished and elegant look.",
+        image: "image/products/f62.jpg"
+      },
+      {
+        title: "Light Blue Strapless Corset Formal Dress",
+        price: "₱3,000",
+        description: "A stunning light blue formal dress crafted from Mikado fabric, featuring a strapless corset design with delicate pearl details for an elegant and refined look.",
+        image: "image/products/f55.jpg"
+      },
+      {
+        title: "Raw Silk Formal Prince Coat for Men",
+        price: "₱400",
+        description: "A regal and elegantly tailored prince coat made from premium raw silk, designed for formal occasions with a sophisticated and timeless appeal.",
+        image: "image/products/f63.jpg"
+      },
+      {
+        title: "Off-the-Shoulder Satin Ball Gown Prom Dress",
+        price: "₱3,200",
+        description: " A glamorous satin ball gown featuring an off-the-shoulder neckline, intricate appliqué beading, and a sweeping train for a regal and sophisticated prom look.",
+        image: "image/products/f56.jpg"
+      },
+      {
+        title: "Double-Breasted Custom 3-Piece Wedding Tuxedo Suit",
+        price: "₱500",
+        description: "A sophisticated double-breasted designer tuxedo suit featuring a tailored fit, perfect for weddings, formal events, and business occasions.",
+        image: "image/products/f64.jpg"
+      },
+      {
+        title: "Formal Ball Gown",
+        price: "₱2,800",
+        description: "A gracefully designed formal ball gown featuring exquisite detailing and a regal silhouette, perfect for special occasions and grand celebrations.",
+        image: "image/products/f57.jpg"
+      },
+      {
+        title: "Red Plus Size Slim Tailored One-Button Men's Coat",
+        price: "₱800",
+        description: "A bold and stylish red slim-fit coat, designed with a tailored cut and a single-button closure, offering a sharp and modern look for formal occasions.",
+        image: "image/products/f65.jpg"
+      },
+    
+      //NEW
+      {
+        title: "Cap Sleeves Lace Cocktail Dress - Pink",
+        price: "₱1,800",
+        description: "A delicate pink cocktail dress featuring cap sleeves and intricate lace details, designed to offer a graceful and feminine look for special occasions.",
+        image: "image/products/f70.jpg"
+      },
+      {
+        title: "Men's Pale Sage Green Long Sleeve Non-Iron Shirt",
+        price: "₱400",
+        description: "A crisp pale sage green long sleeve shirt designed with non-iron fabric for a smooth, polished look, ideal for both business and casual occasions.",
+        image: "image/products/f78.jpg"
+      },
+      {
+        title: "Fit and Flare Cocktail Dress",
+        price: "₱1,000",
+        description: "A flattering fit and flare cocktail dress, designed to offer a timeless silhouette with elegant details, perfect for formal parties and evening events.",
+        image: "image/products/f71.jpg"
+      },
+      {
+        title: "Men's Cotton Long Sleeve Formal Shirt – Regular Fit with Stain Shield",
+        price: "₱400",
+        description: "A classic cotton long sleeve formal shirt featuring a regular fit and stain shield technology, designed to maintain a crisp, clean appearance throughout the day.",
+        image: "image/products/f79.jpg"
+      },
+      {
+        title: "Ivory Beaded Tulle Strapless Cocktail Dress",
+        price: "₱1,300",
+        description: "A stunning ivory strapless cocktail dress featuring delicate beading and soft tulle, designed to create an elegant and graceful look for special occasions.",
+        image: "image/products/f72.jpg"
+      },
+      {
+        title: "Women's Chiffon Long Sleeve Autumn Shirt",
+        price: "₱500",
+        description: "A lightweight chiffon long sleeve shirt, perfect for autumn, offering a flattering and elegant fit with a soft, breathable fabric ideal for casual or semi-formal wear.",
+        image: "image/products/f80.jpg"
+      },
+      {
+        title: "Reception White Cocktail Dress",
+        price: "₱1,200",
+        description: "A chic and sophisticated white cocktail dress, designed for receptions, offering an elegant silhouette with refined details for an unforgettable look.",
+        image: "image/products/f73.jpg"
+      },
+      {
+        title: "Men's Cotton Long Sleeve Business Formal Polo Shirt",
+        price: "₱500",
+        description: "A versatile cotton long sleeve polo shirt designed for business and formal wear, offering a polished and comfortable fit suitable for professional occasions.",
+        image: "image/products/f81.jpg"
+      },
+    ];
+
+
+    // Function to get the product ID from the URL
+    function getProductID() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("id") || 0; // Default to first product if no ID is found
+    }
+    // Function to load product details dynamically
+    function loadProduct() {
+      const productIndex = parseInt(getProductID(), 10);
+      if (productIndex >= 0 && productIndex < products.length) {
+        const product = products[productIndex];
+        document.getElementById("productImage").src = product.image;
+        document.getElementById("productTitle").innerText = product.title;
+        document.getElementById("productPrice").innerText = product.price;
+        document.getElementById("productDescription").innerText = product.description;
+      }
+    }
+    // Load product when the page loads
+    window.onload = loadProduct;
+  </script>
+
+  <script src="script.js"></script>
+</body>
+
+
+
+
+
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jalen's Boutique</title>
+  <link rel="stylesheet" href="contact.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="shortcut icon" href="image/fav-icon.png" />
+</head>
+
+<body>
+  <header class="sticky">
+    <a href="#" class="logo"><img src="image/logo.png" alt=""></a>
+    <ul class="navmenu">
+      <li><a href="index.html">home</a></li>
+      <li><a href="shop.html">shop</a></li>
+      <li><a class="active" href="#contact-box">contact</a></li>
+      <li><a href="reviews.html">reviews</a></li>
+    </ul>
+
+    <div class="nav-icon">
+      <a href="account.html"><i class='bx bx-user'></i></a>
+      <a href="renting.html"><i class='bx bx-shopping-bag'></i></a>
+
+      <div id="menu-icon" class="bx bx-menu"></div>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1 class="heading">CONTACT <span>US</span></h1>
+    <img src="image/girl.png" alt="Models Contact Info" class="model-image">
+    <div class="card">
+      <p class="description">
+        Have questions or need assistance? Feel free to reach out to us! Our team is here to help.
+        Whether you have inquiries, feedback, or need support, do not hesitate to get in touch.
+        You can contact us via email, phone, or by filling out the form below. We look forward to hearing from you!
+      </p>
+      <div class="contact-info">
+        <p id="address"><i class="fas fa-map-marker-alt"></i> <strong>Address</strong> Jose Panganiban, Camarines Norte
+        </p>
+        <p id="phone"><i class="fas fa-phone-alt"></i> <strong>Phone</strong> 09292363016</p>
+        <p id="facebook"><i class="fa-brands fa-facebook-f"></i> <strong>Facebook</strong> Aylen Samar Gabor</p>
+        <p id="email"><i class="fas fa-envelope"></i> <strong>Email</strong> gaboraylen24@gmail.com</p>
+      </div>
+      <button class="btn">Send Message</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 class="heading">CONTACT <span>US</span></h1>
+
+    <img src="image/boy.png" alt="Models Image" class="model-image">
+
+    <div class="card">
+      <button class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <h2>Send a Message</h2>
+      <form id="contact-form">
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="user-email" placeholder="Email" required>
+        <textarea id="message" placeholder="Type your message..." required></textarea>
+        <button type="submit" class="btn">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Address Click - Open Google Maps
+    document.getElementById("address").addEventListener("click", function () {
+      window.open("https://www.google.com/maps/place/Jose+Panganiban,+Camarines+Norte/@14.2742326,122.5746291,12z/data=!3m1!4b1!4m6!3m5!1s0x339895973f7d44f7:0xaeefaa0b1cf14bce!8m2!3d14.2833889!4d122.6979815!16zL20vMDZsMjJz?authuser=0&entry=ttu&g_ep=EgoyMDI1MDMxOS4yIKXMDSoASAFQAw%3D%3D", "_blank");
+    });
+
+    // Phone Click - Open Dialer
+    document.getElementById("phone").addEventListener("click", function () {
+      window.location.href = "tel:09292363016";
+    });
+
+    // Facebook Click - Open Facebook Link in a New Tab
+    document.getElementById("facebook").addEventListener("click", function () {
+      window.open("https://www.facebook.com/share/1FG9pbApL9/", "_blank");
+    });
+    // Email Click - Open Gmail Compose in a New Tab
+    document.getElementById("email").addEventListener("click", function () {
+      var recipient = "nclmendiola29@gmail.com";
+      var subject = "Inquiry";
+      var body = "Hello, I would like to inquire about...";
+
+      var gmailUrl = "https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1"
+        + "&to=" + encodeURIComponent(recipient)
+        + "&su=" + encodeURIComponent(subject)
+        + "&body=" + encodeURIComponent(body);
+
+      window.open(gmailUrl, "_blank");
+    });
+
+    // Form Submission
+    document.getElementById("contact-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      var name = document.getElementById("name").value;
+      var email = document.getElementById("user-email").value;
+      var message = document.getElementById("message").value;
+
+      if (name === "" || email === "" || message === "") {
+        alert("Please fill in all fields before sending.");
+        return;
+      }
+
+      var recipient = "nclmendiola29@gmail.com";
+      var subject = "New Contact Form Submission from " + name;
+      var body = "Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message;
+
+      var gmailUrl = "https://mail.google.com/mail/u/0/?view=cm&fs=1&tf=1"
+        + "&to=" + encodeURIComponent(recipient)
+        + "&su=" + encodeURIComponent(subject)
+        + "&body=" + encodeURIComponent(body);
+
+      window.open(gmailUrl, "_blank");
+
+      alert("Redirecting to Gmail to send your message.");
+      document.getElementById("contact-form").reset();
+    });
+
+    //BUTTONS
+    document.addEventListener("DOMContentLoaded", function () {
+      const sendMessageBtn = document.querySelector(".btn"); // "Send Message" button
+      const contactForm = document.querySelector(".container:nth-of-type(2)"); // Form container
+      const backBtn = document.querySelector(".back-btn"); // "Back" button
+      const mainContact = document.querySelector(".container:nth-of-type(1)"); // Main contact container
+
+      // Hide the form initially
+      contactForm.classList.add("hidden");
+
+      // Show the form when clicking "Send Message"
+      sendMessageBtn.addEventListener("click", function () {
+        mainContact.classList.add("hidden");
+        contactForm.classList.remove("hidden");
+        contactForm.classList.add("visible");
+      });
+
+      // Hide the form & go back to main contact section when clicking "Back"
+      backBtn.addEventListener("click", function () {
+        contactForm.classList.remove("visible");
+        contactForm.classList.add("hidden");
+        mainContact.classList.remove("hidden");
+        window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to top smoothly
+      });
+    });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

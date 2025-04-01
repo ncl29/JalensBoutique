@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jalen's Boutique</title>
+  <link rel="stylesheet" href="renting.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="shortcut icon" href="image/fav-icon.png" />
+</head>
+
+<body>
+  <header class="sticky">
+    <a href="#" class="logo"><img src="image/logo.png" alt=""></a>
+    <ul class="navmenu">
+      <li><a href="index.html">home</a></li>
+      <li><a href="shop.html">shop</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="reviews.html">reviews</a></li>
+    </ul>
+
+    <div class="nav-icon">
+      <a href="account.html"><i class='bx bx-user'></i></a>
+      <a href="#current-rent" class="active"><i class='bx bx-shopping-bag'></i></a>
+
+      <div id="menu-icon" class="bx bx-menu"></div>
+    </div>
+  </header>
+
+  <h1>Renting History</h1>
+
+  <!--CURRENT RENT-->
+  <section id="current-rent">
+    <h2>Current Rental</h2>
+    <div id="current-rent-container">
+      <p>No active rental.</p>
+    </div>
+  </section>
+
+  <!--RENTAL HISTORY-->
+  <section id="rental-history">
+    <h2>Past Rentals</h2>
+    <div id="history-container">
+      <p>No past rentals found.</p>
+    </div>
+  </section>
+
+  <script>
+    // Sample rental data (Replace this with real backend data)
+    let userRentals = {
+      current: {
+        product: "Maxi Dress - Yellow Satin",
+        price: "₱1,200",
+        rentedOn: "March 23, 2025",
+        scheduledReturn: "March 30, 2025"
+      },
+      history: [
+        {
+          product: "Linen Blazer",
+          price: "₱350",
+          rentedOn: "March 1, 2025",
+          scheduledReturn: "March 7, 2025",
+          returnedOn: "March 6, 2025"
+        },
+        {
+          product: "Summer Spring Men's Suit",
+          price: "₱400",
+          rentedOn: "February 15, 2025",
+          scheduledReturn: "February 22, 2025",
+          returnedOn: "February 23, 2025"
+        }
+      ]
+    };
+
+    // Function to display the current rental
+    function loadCurrentRental() {
+      let currentContainer = document.getElementById("current-rent-container");
+
+      if (userRentals.current) {
+        currentContainer.innerHTML = `
+                <div class="rental-item">
+                    <h3>${userRentals.current.product}</h3>
+                    <p>Price: ${userRentals.current.price}</p>
+                    <p>Rented On: ${userRentals.current.rentedOn}</p>
+                    <p>Scheduled Return: ${userRentals.current.scheduledReturn}</p>
+                </div>
+            `;
+      }
+    }
+
+    // Function to display rental history
+    function loadRentalHistory() {
+      let historyContainer = document.getElementById("history-container");
+
+      if (userRentals.history.length > 0) {
+        historyContainer.innerHTML = ""; // Clear default text
+        userRentals.history.forEach(rental => {
+          historyContainer.innerHTML += `
+                    <div class="rental-item">
+                        <h3>${rental.product}</h3>
+                        <p>Price: ${rental.price}</p>
+                        <p>Rented On: ${rental.rentedOn}</p>
+                        <p>Scheduled Return: ${rental.scheduledReturn}</p>
+                        <p>Returned On: ${rental.returnedOn}</p>
+                    </div>
+                `;
+        });
+      }
+    }
+
+    // Load rental data when the page loads
+    loadCurrentRental();
+    loadRentalHistory();
+  </script>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

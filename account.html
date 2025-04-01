@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jalen's Boutique</title>
+  <link rel="stylesheet" href="account.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="shortcut icon" href="image/fav-icon.png" />
+</head>
+
+<body>
+  <header class="sticky">
+    <a href="#" class="logo"><img src="image/logo.png" alt=""></a>
+    <ul class="navmenu">
+      <li><a href="index.html">home</a></li>
+      <li><a href="shop.html">shop</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="reviews.html">reviews</a></li>
+    </ul>
+
+    <div class="nav-icon">
+      <a href="#container" class="active"><i class='bx bx-user'></i></a>
+      <a href="renting.html"><i class='bx bx-shopping-bag'></i></a>
+
+      <div id="menu-icon" class="bx bx-menu"></div>
+    </div>
+  </header>
+
+  <h1>ACCOUNT <span>MANAGEMENT</span></h1>
+  <div class="container">
+    <div class="profile-photo">
+      <img id="profileImg" src="profile.jpg" alt="Profile Photo">
+      <div class="change-photo" onclick="document.getElementById('photoInput').click()">Change Photo</div>
+      <input type="file" id="photoInput" accept="image/*" onchange="showDialog(event)">
+    </div>
+
+    <div class="input-group">
+      <label>Name</label>
+      <span class="edit" onclick="editField('username')">Edit</span>
+      <input type="text" id="username" placeholder="Enter your username" disabled>
+      <small class="error" id="usernameError"></small>
+    </div>
+    <div class="input-group">
+      <label>Email</label>
+      <span class="edit" onclick="editField('email')">Edit</span>
+      <input type="email" id="email" placeholder="Enter your email" disabled>
+      <small class="error" id="emailError"></small>
+    </div>
+    <div class="input-group">
+      <label>Password</label>
+      <span class="edit" onclick="editField('password')">Edit</span>
+      <input type="password" id="password" placeholder="******" disabled>
+      <small class="error" id="passwordError"></small>
+    </div>
+
+    <button id="save-btn" onclick="saveAll()">Save</button>
+    <button id="logout-btn">Logout</button>
+  </div>
+
+  <div class="overlay" id="overlay"></div>
+
+  <div class="dialog-box" id="dialogBox">
+    <p>Are you sure you want to update your profile photo?</p>
+    <button class="confirm-btn" onclick="updatePhoto()">Yes</button>
+    <button class="cancel-btn" onclick="hideDialog()">No</button>
+  </div>
+
+  <!-- New Dialog Box for No Changes -->
+  <div class="overlay" id="noChangeOverlay"></div>
+  <div class="dialog-box" id="noChangeDialog">
+    <p>No changes were made. Please edit your information before saving.</p>
+    <button class="confirm-btn" onclick="hideNoChangeDialog()">OK</button>
+  </div>
+
+  <!-- Success Message Overlay -->
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-box">
+      <p>Profile updated successfully!</p>
+      <button onclick="closeSuccessOverlay()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      loadSavedData();
+    });
+
+    // Enable editing for a single field
+    function editField(fieldId) {
+      const inputField = document.getElementById(fieldId);
+      inputField.removeAttribute("disabled");
+      inputField.focus();
+    }
+
+    // Temporary storage for profile image (not saved until "Save All" is clicked)
+    let tempProfileImage = null;
+
+    // Save all fields at once
+    function saveAll() {
+      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      let isValid = true;
+
+      document.getElementById("usernameError").textContent = "";
+      document.getElementById("emailError").textContent = "";
+      document.getElementById("passwordError").textContent = "";
+
+      if (!username) {
+        document.getElementById("usernameError").textContent = "Name is required.";
+        isValid = false;
+      } else if (!username.match(/^[A-Z][a-zA-Z]+(?:\s[A-Z][a-zA-Z]+)*$/)) {
+        document.getElementById("usernameError").textContent = "Enter a valid full name with each word starting with a capital letter.";
+        isValid = false;
+      }
+
+      if (!email.match(/^\w+@gmail\.com$/)) {
+        document.getElementById("emailError").textContent = "Email must be in the format 'example@gmail.com'.";
+        isValid = false;
+      }
+      if (!password || password.length < 6) {
+        document.getElementById("passwordError").textContent = "Password must be at least 6 characters.";
+        isValid = false;
+      }
+
+      const savedUsername = localStorage.getItem("username");
+      const savedEmail = localStorage.getItem("email");
+      const savedPassword = localStorage.getItem("password");
+
+      // Check if any field has changed, including the photo
+      const isUsernameChanged = username !== savedUsername;
+      const isEmailChanged = email !== savedEmail;
+      const isPasswordChanged = password !== savedPassword;
+      const isPhotoChanged = tempProfileImage !== null; // Check if profile photo has been changed
+
+      // If any field or the photo has changed, we proceed to save
+      if (isValid && (isUsernameChanged || isEmailChanged || isPasswordChanged || isPhotoChanged)) {
+        if (isUsernameChanged) localStorage.setItem("username", username);
+        if (isEmailChanged) localStorage.setItem("email", email);
+        if (isPasswordChanged) localStorage.setItem("password", password);
+
+        // Save the profile photo if there is one
+        if (isPhotoChanged) {
+          localStorage.setItem("profileImg", tempProfileImage);
+        }
+
+        // Disable editing after save
+        document.getElementById("username").setAttribute("disabled", "true");
+        document.getElementById("email").setAttribute("disabled", "true");
+        document.getElementById("password").setAttribute("disabled", "true");
+
+        document.getElementById("successOverlay").style.display = "flex";
+      } else {
+        // Show the No Change dialog only if nothing was changed (excluding photo)
+        if (!isUsernameChanged && !isEmailChanged && !isPasswordChanged && !isPhotoChanged) {
+          document.getElementById("noChangeOverlay").style.display = "block";
+          document.getElementById("noChangeDialog").style.display = "block";
+        }
+      }
+    }
+
+
+
+    function hideNoChangeDialog() {
+      document.getElementById("noChangeOverlay").style.display = "none";
+      document.getElementById("noChangeDialog").style.display = "none";
+    }
+
+    function closeSuccessOverlay() {
+      document.getElementById("successOverlay").style.display = "none";
+    }
+
+    // Load saved data from localStorage
+    function loadSavedData() {
+      const fields = ["username", "email", "password"];
+      fields.forEach((fieldId) => {
+        const savedValue = localStorage.getItem(fieldId);
+        if (savedValue) {
+          document.getElementById(fieldId).value = savedValue;
+        }
+      });
+
+      const savedImage = localStorage.getItem("profileImg");
+      if (savedImage) {
+        document.getElementById("profileImg").src = savedImage;
+      }
+    }
+
+    // Profile photo upload dialog functions
+    let fileEvent = null;
+    function showDialog(event) {
+      fileEvent = event;
+      document.getElementById("dialogBox").style.display = "block";
+      document.getElementById("overlay").style.display = "block";
+    }
+
+    function hideDialog() {
+      document.getElementById("dialogBox").style.display = "none";
+      document.getElementById("overlay").style.display = "none";
+      fileEvent.target.value = "";
+    }
+
+    function updatePhoto() {
+      const file = fileEvent.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("profileImg").src = e.target.result;
+          tempProfileImage = e.target.result; // Store in temp variable, NOT in localStorage yet
+        };
+        reader.readAsDataURL(file);
+      }
+      hideDialog();
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE-edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jalen's Boutique</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+  <link rel="shortcut icon" href="image/fav-icon.png" />
+</head>
+
+<body>
+  <header class="sticky">
+    <a href="index.html" class="logo"><img src="image/logo.png" alt=""></a>
+    <ul class="navmenu">
+      <li><a class="active" href="#banner">home</a></li>
+      <li><a href="shop.html">shop</a></li>
+      <li><a href="contact.html">contact</a></li>
+      <li><a href="reviews.html">reviews</a></li>
+    </ul>
+
+    <div class="nav-icon">
+      <a href="account.html"><i class='bx bx-user'></i></a>
+      <a href="renting.html"><i class='bx bx-shopping-bag'></i></a>
+
+      <div id="menu-icon" class="bx bx-menu"></div>
+    </div>
+  </header>
+
+  <div class="banner" id="banner">
+    <div class="image-container">
+      <div class="image" style="background-image: url('image/cover/1.png');"></div>
+      <div class="image" style="background-image: url('image/cover/2.png');"></div>
+      <div class="image" style="background-image: url('image/cover/3.png');"></div>
+      <div class="image" style="background-image: url('image/cover/4.png');"></div>
+      <div class="image" style="background-image: url('image/cover/5.png');"></div>
+      <div class="image" style="background-image: url('image/cover/6.png');"></div>
+      <div class="image" style="background-image: url('image/cover/7.png');"></div>
+      <div class="image" style="background-image: url('image/cover/8.png');"></div>
+      <div class="image" style="background-image: url('image/cover/9.png');"></div>
+      <div class="image" style="background-image: url('image/cover/10.png');"></div>
+    </div>
+    <div class="overlay">
+      <h1>Style that fits, Prices that Suit</h1>
+      <button id="shopNow">Browse</button>
+    </div>
+  </div>
+
+  <!--FEATURE PRODUCTS-->
+  <section id="product1" class="section-p1">
+    <h2>Featured Products</h2>
+    <p>Summer Collection Modern Design</p>
+    <div class="pro-container">
+
+      <div class="pro" onclick="window.location.href='sproduct.html'">
+        <img src="image/products/f2.jpg" alt="">
+        <div class="des">
+          <span>Anderson</span>
+          <h5>Maxi Dress - Yellow Satin</h5>
+          <h4>&#8369;1,200</h4>
+        </div>
+      </div>
+
+      <div class="pro" onclick="window.location.href='sproduct2.html'">
+        <img src="image/products/f1.jpg" alt="">
+        <div class="des">
+          <span>Dorothy</span>
+          <h5>Light Purple Peak Lapel Tuxedo</h5>
+          <h4>&#8369;400</h4>
+        </div>
+      </div>
+
+      <div class="pro" onclick="window.location.href='sproduct3.html'">
+        <img src="image/products/f4.jpg" alt="">
+        <div class="des">
+          <span>Dorothy</span>
+          <h5>Pleated Slit long Chiffon Dress</h5>
+          <h4>&#8369;1,400</h4>
+        </div>
+      </div>
+
+      <div class="pro" onclick="window.location.href='sproduct4.html'">
+        <img src="image/products/f5.jpg" alt="">
+        <div class="des">
+          <span>Huutoe</span>
+          <h5>Linen Blazer</h5>
+          <h4>&#8369;350</h4>
+        </div>
+      </div>
+
+      <div class="pro" onclick="window.location.href='sproduct5.html'">
+        <img src="image/products/f9.jpg" alt="">
+        <div class="des">
+          <span>Leah</span>
+          <h5>Corset Back Floor Length Dress</h5>
+          <h4>&#8369;1,400</h4>
+        </div>
+      </div>
+
+      <div class="pro" onclick="window.location.href='sproduct6.html'">
+        <img src="image/products/f6.jpg" alt="">
+        <div class="des">
+          <span>Arrow</span>
+          <h5>Linen Pink Longsleeves</h5>
+          <h4>&#8369;400</h4>
+        </div>
+      </div>
+
+      <div class="pro" onclick="window.location.href='sproduct7.html'">
+        <img src="image/products/f7.jpg" alt="">
+        <div class="des">
+          <span>Sirri</span>
+          <h5>Summer Spring Men's Suit</h5>
+          <h4>&#8369;400</h4>
+        </div>
+      </div>
+
+      <div class="pro" onclick="window.location.href='sproduct8.html'">
+        <img src="image/products/f8.jpg" alt="">
+        <div class="des">
+          <span>Lady</span>
+          <h5>All-matched Skew Collar Dress</h5>
+          <h4>&#8369;1,800</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--BACK TO TOP-->
+  <div class="back-to-top-container">
+    <button onclick="scrollToTop()" id="backToTop">Back to Top</button>
+  </div>
+
+  <!--END TEXT-->
+  <div class="end-text">
+    <p>Copyright &#169; 2025. All Rights Reserved. </p>
+  </div>
+
+  <!--SCRIPT-->
+  <script>
+    document.getElementById("shopNow").addEventListener("click", function (event) {
+      event.preventDefault(); // Prevent default anchor behavior
+
+      const target = document.querySelector("#product1 h2");
+      const headerOffset = 120; // Adjust this value based on your fixed header height
+      const elementPosition = target.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    });
+
+    //BACK TO TOP
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+  <script src="script.js"></script>
+</body>
+
+
+
+</html>

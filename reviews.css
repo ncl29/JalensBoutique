@@ -1,0 +1,349 @@
+@import url('https://fonts.googleapis.com/css2?family=Imbue:opsz,wght@10..100,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: 'Poppins', sans-serif;
+  list-style: none;
+  text-decoration: none;
+}
+
+body {
+  background-color: #f5f1ed !important;
+}
+
+/*HEADER*/
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 10%;
+}
+
+.logo img {
+  max-width: 100px;
+  height: auto;
+}
+
+.navmenu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navmenu a {
+  color: #3b1c32;
+  font-size: 16px;
+  text-transform: capitalize;
+  padding: 10px 20px;
+  font-weight: 400;
+  position: relative;
+  transition: all .42s ease;
+}
+
+.navmenu a:hover,
+.navmenu a.active {
+  color: #be5985;
+}
+
+.navmenu li a.active::after,
+.navmenu a:hover::after {
+  content: "";
+  width: 30%;
+  height: 2px;
+  background: #be5985;
+  position: absolute;
+  bottom: -4px;
+  left: 20px;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-icon a {
+  position: relative;
+  font-size: 24px;
+  color: #001427;
+  transition: color 0.3s ease;
+}
+
+.nav-icon a:hover,
+.nav-icon a.active {
+  color: #EE1C47;
+}
+
+.nav-icon a.active::after,
+.nav-icon a:hover::after {
+  content: "";
+  width: 30%;
+  height: 2px;
+  background: #EE1C47;
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#menu-icon {
+  font-size: 35px;
+  color: #2C2C2C;
+  z-index: 10001;
+  display: none;
+  cursor: pointer;
+}
+
+header.sticky {
+  background-color: #f5f1ed !important;
+  padding: 10px 10%;
+  height: 110px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+}
+
+/*REVIEWS*/
+.testimonials {
+  display: flex;
+  gap: 20px;
+  width: 100vw;
+  max-width: 100%;
+  background: #f5f1ed;
+  padding: 120px 20px 10px 20px;
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.left-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-width: 250px;
+}
+
+.left-panel h1 {
+  font-size: 50px;
+  color: #880d1e;
+  display: block;
+}
+
+.write-review {
+  background: #880d1e;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 50px;
+}
+
+.write-review:hover{
+  transform: scale(1.1); 
+  color: white;
+  background: #fb6376;
+}
+
+.right-panel {
+  flex: 2;
+  overflow-y: auto;
+  max-height: calc(100vh - 150px);
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  align-items: center;
+}
+
+.review-card {
+  display: flex;
+  background: #fbf2c0;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(65, 11, 19, 0.747);
+  align-items: center;
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+}
+
+.review-card:hover{
+  transform: scale(1.1);
+}
+
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.review-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-content h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.date {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+p {
+  margin: 5px 0;
+}
+
+/* Review Modal Styling */
+.review-modal, .confirmation-modal, .success-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.review-dialog, .confirmation-dialog, .success-dialog {
+  background: white;
+  padding: 20px;
+  width: 400px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.review-dialog h2 {
+  margin-bottom: 10px;
+}
+
+.review-dialog input,
+.review-dialog textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.review-dialog textarea {
+  height: 100px;
+  resize: none;
+}
+
+.review-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.success-dialog button {
+  background: #721121;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.confirmation-buttons button#confirm-submit {
+  background: #003e1f;
+  color: white;
+  border: none;
+  padding: 10px 50px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 20px;
+}
+
+.confirmation-buttons button#cancel-submit {
+  background: #d90429;
+  color: white;
+  border: none;
+  padding: 10px 50px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 20px;
+}
+
+
+.confirmation-buttons button#confirm-submit:hover {
+  background: #254441 !important;
+}
+
+.confirmation-buttons button#cancel-submit:hover {
+  background: #721121 !important;
+}
+
+.review-buttons button{
+  background: #c00021;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.review-buttons button:hover {
+  background: #e03572;
+}
+
+#cancel-review {
+  background: #ccc;
+  color: black;
+}
+
+#cancel-review:hover {
+  background: #bbb;
+}
+
+.review-overlay, .confirmation-overlay, .success-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.success-dialog button {
+  background-color: #4CAF50;
+  color: white;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.success-dialog button:hover{
+  background: #254441;
+}

@@ -1,0 +1,359 @@
+@import url('https://fonts.googleapis.com/css2?family=Imbue:opsz,wght@10..100,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: 'Poppins', sans-serif;
+  list-style: none;
+  text-decoration: none;
+}
+
+body {
+  background-color: #f5f1ed !important;
+  text-align: center;
+}
+
+/*HEADER*/
+header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 10%;
+}
+
+.logo img {
+  max-width: 100px;
+  height: auto;
+}
+
+.navmenu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navmenu a {
+  color: #3b1c32;
+  font-size: 16px;
+  text-transform: capitalize;
+  padding: 10px 20px;
+  font-weight: 400;
+  position: relative;
+  transition: all .42s ease;
+}
+
+.navmenu a:hover,
+.navmenu a.active {
+  color: #be5985;
+}
+
+.navmenu li a.active::after,
+.navmenu a:hover::after {
+  content: "";
+  width: 30%;
+  height: 2px;
+  background: #be5985;
+  position: absolute;
+  bottom: -4px;
+  left: 20px;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-icon a {
+  position: relative;
+  font-size: 24px;
+  color: #001427;
+  transition: color 0.3s ease;
+}
+
+.nav-icon a:hover,
+.nav-icon a.active {
+  color: #EE1C47;
+}
+
+.nav-icon a.active::after,
+.nav-icon a:hover::after {
+  content: "";
+  width: 30%;
+  height: 2px;
+  background: #EE1C47;
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#menu-icon {
+  font-size: 35px;
+  color: #2C2C2C;
+  z-index: 10001;
+  display: none;
+  cursor: pointer;
+}
+
+header.sticky {
+  background-color: #f5f1ed !important;
+  padding: 10px 10%;
+  height: 110px;
+  box-shadow: 0px 0px 10px rgb(0 0 0 / 10%);
+}
+
+/*ACCOUNT MANAGEMENT*/
+h1 {
+  font-size: 45px;
+  font-weight: bold;
+  color: #5a1919;
+  margin-top: 150px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+h1 span {
+  color: #ff4d6d;
+}
+
+.container {
+  max-width: 550px;
+  margin: auto;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-photo {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #3d0f14;
+  margin: auto;
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.change-photo {
+  position: absolute;
+  bottom: 0;
+  width: 100%; /* Corrected width */
+  background: rgba(61, 15, 20, 0.7);
+  color: white;
+  text-align: center;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 5px 30px; /* Optional: Add padding for better appearance */
+}
+
+
+.input-group {
+  text-align: left;
+  margin: 15px 0;
+  position: relative;
+}
+
+.input-group label {
+  font-weight: bold;
+  color: #3d0f14;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f5f5f5;
+  pointer-events: none;
+}
+
+.edit {
+  color: blue;
+  cursor: pointer;
+  float: right;
+}
+
+#photoInput {
+  display: none;
+}
+
+.dialog-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: none;
+  z-index: 1000;
+  text-align: center;
+}
+
+.dialog-box button {
+  margin: 10px;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.confirm-btn {
+  background: green;
+  color: white;
+}
+
+.cancel-btn {
+  background: red;
+  color: white;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 999;
+}
+
+ /* Success Message Overlay Styles */
+ .success-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.success-box {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.success-box p {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.success-box button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.success-box button:hover {
+  background: #45a049;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Dialog Box */
+.dialog-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  z-index: 2000;
+  display: none;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dialog-box p {
+  margin-bottom: 15px;
+}
+
+.dialog-box button {
+  padding: 8px 16px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+.dialog-box button:hover {
+  background-color: #45a049;
+}
+
+.dialog-box .cancel-btn {
+  background-color: #f44336;
+}
+
+.dialog-box .cancel-btn:hover {
+  background-color: #e53935;
+}
+
+#save-btn {
+  background-color: #7d1c4a;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 20%;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+#save-btn:hover {
+  background-color: #c9302c;
+}
+
+/* Logout Button */
+#logout-btn {
+  background-color: #540b0e;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 20%;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+#logout-btn:hover {
+  background-color: #087e8b;
+}
